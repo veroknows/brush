@@ -1,2 +1,2 @@
-# brush
-Untitled Brush Studio | Art Gallery &amp; Services
+# Untitled Brush Studio
+Art Gallery &amp; Services
