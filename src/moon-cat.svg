@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Moon -->
+  <path d="M400 150C513.071 150 605 241.929 605 355C605 468.071 513.071 560 400 560C286.929 560 195 468.071 195 355C195 241.929 286.929 150 400 150Z" fill="white" opacity="0.8"/>
+  
+  <!-- Cat body -->
+  <path d="M380 280C380 280 360 300 360 320C360 340 380 360 400 360C420 360 440 340 440 320C440 300 420 280 420 280L400 300L380 280Z" fill="black"/>
+  
+  <!-- Cat head -->
+  <path d="M400 280C400 280 420 260 440 280C460 300 460 320 440 340C420 360 400 360 380 340C360 320 360 300 380 280C400 260 400 280 400 280Z" fill="black"/>
+  
+  <!-- Cat ears -->
+  <path d="M380 260C380 260 370 240 390 250C410 260 400 270 400 270L380 260Z" fill="black"/>
+  <path d="M420 260C420 260 430 240 410 250C390 260 400 270 400 270L420 260Z" fill="black"/>
+  
+  <!-- Cat eyes -->
+  <circle cx="385" cy="290" r="5" fill="white"/>
+  <circle cx="415" cy="290" r="5" fill="white"/>
+  <circle cx="385" cy="290" r="2" fill="black"/>
+  <circle cx="415" cy="290" r="2" fill="black"/>
+  
+  <!-- Cat nose -->
+  <path d="M400 300L395 305L400 310L405 305L400 300Z" fill="pink"/>
+  
+  <!-- Cat whiskers -->
+  <path d="M395 305C395 305 385 300 375 305" stroke="black" stroke-width="1"/>
+  <path d="M395 310C395 310 385 315 375 310" stroke="black" stroke-width="1"/>
+  <path d="M405 305C405 305 415 300 425 305" stroke="black" stroke-width="1"/>
+  <path d="M405 310C405 310 415 315 425 310" stroke="black" stroke-width="1"/>
+  
+  <!-- Cat paws -->
+  <path d="M370 320C370 320 350 310 340 320C330 330 340 350 350 350C360 350 370 340 370 330V320Z" fill="black"/>
+  <path d="M430 320C430 320 450 310 460 320C470 330 460 350 450 350C440 350 430 340 430 330V320Z" fill="black"/>
+  
+  <!-- Stars -->
+  <circle cx="200" cy="200" r="2" fill="white"/>
+  <circle cx="600" cy="200" r="2" fill="white"/>
+  <circle cx="300" cy="150" r="2" fill="white"/>
+  <circle cx="500" cy="150" r="2" fill="white"/>
+  <circle cx="250" cy="250" r="2" fill="white"/>
+  <circle cx="550" cy="250" r="2" fill="white"/>
+  <circle cx="350" cy="180" r="2" fill="white"/>
+  <circle cx="450" cy="180" r="2" fill="white"/>
+</svg> 

@@ -1,2 +1,2 @@
 # Untitled Brush Studio
-Art Gallery &amp; Services
+Personal Art Gallery &amp; Services
