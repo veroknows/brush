@@ -7,6 +7,7 @@ import InformationSection from '../components/InformationSection';
 import ArtPopup from '../components/ArtPopup';
 import { Artwork } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
+import { services } from '../config/services';
 
 interface HomePageProps {
   images: ImageConfig;
@@ -91,7 +92,17 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <ServicesSection stickerImage={images.services.stickers} />
+          <ServicesSection
+            services={services.slice(0, 1)}
+            headerRight={
+              <Link
+                to="/services"
+                className="text-candy-purple hover:text-candy-pink font-comic transition-colors pr-2"
+              >
+                View All →
+              </Link>
+            }
+          />
         </motion.div>
         
         {/* My Arts Section */}
@@ -128,7 +139,7 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
               className="pr-2"
             >
               <Link
-                to="/my-arts"
+                to="/arts"
                 className="text-candy-purple hover:text-candy-pink font-comic transition-colors"
               >
                 View All →

@@ -1,24 +1,25 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { defaultImages } from '../config/images';
+import { Service } from '../types';
+import { motion } from 'framer-motion';
 
 interface ServicesSectionProps {
-  stickerImage: string;
+  services: Service[];
+  headerRight?: React.ReactNode;
 }
 
-const STICKER_SERVICE_ID = 'sticker-printing-service';
-
-const ServicesSection: React.FC<ServicesSectionProps> = ({ stickerImage }) => {
+const ServicesSection: React.FC<ServicesSectionProps> = ({ services, headerRight }) => {
   const { addItem } = useCart();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (service: Service) => {
     addItem({
-      id: STICKER_SERVICE_ID,
-      type: 'sticker',
-      name: 'Custom Sticker Printing',
+      id: service.id,
+      type: 'sticker', // For now, all services are stickers. Update as more types are added.
+      name: service.name,
       quantity: 1,
-      unitPrice: 1.00,
-      totalPrice: 1.00,
+      unitPrice: service.price,
+      totalPrice: service.price,
     });
   };
 
@@ -29,47 +30,63 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ stickerImage }) => {
           My Services
           <span className="inline-block ml-2">{defaultImages.hero.emoji.service}</span>
         </h2>
+        {headerRight && (
+          <div>{headerRight}</div>
+        )}
       </div>
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-        <div className="p-6">
-          <div className="flex flex-col md:flex-row md:items-center gap-6">
-            <div className="md:w-1/3">
-              <div className="relative h-48 md:h-64 rounded-lg overflow-hidden">
-                <img
-                  src={stickerImage}
-                  alt="Sticker Printing Service"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            <div className="md:w-2/3">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-                <div>
-                  <h3 className="text-lg font-comic text-candy-purple mb-2">Custom Sticker Printing</h3>
-                  <p className="text-sm font-comic text-gray-600">
-                    Upload your digital art and get high-quality stickers delivered to your door.
-                  </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {services.map((service, index) => (
+          <motion.div
+            key={service.id}
+            className="bg-white rounded-lg shadow-sm overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <div className="p-6 flex flex-col md:flex-row md:items-center gap-6">
+              <div className="md:w-1/3">
+                <div className="relative h-48 md:h-64 rounded-lg overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={service.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <div className="flex items-center space-x-4">
+              </div>
+              <div className="md:w-2/3 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-lg font-comic text-candy-purple mb-2">{service.name}</h3>
+                  <p className="text-sm font-comic text-gray-600">{service.description}</p>
+                </div>
+                <div className="flex items-center space-x-4 mt-4">
                   <div className="text-right">
-                    <p className="text-sm font-comic text-gray-600">Price per sticker</p>
-                    <p className="text-lg font-comic text-candy-pink">$1.00</p>
+                    <p className="text-sm font-comic text-gray-600">Price per item</p>
+                    <motion.p
+                      className="text-lg font-comic text-candy-pink"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.2 }}
+                    >
+                      ${service.price.toFixed(2)}
+                    </motion.p>
                   </div>
-                  <button
-                    onClick={handleAddToCart}
+                  <motion.button
+                    onClick={() => handleAddToCart(service)}
                     className="bg-candy-purple text-white text-sm font-comic py-2 px-6 rounded-full hover:bg-candy-pink transition-colors whitespace-nowrap"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.2 }}
                   >
                     Add to Cart
-                  </button>
+                  </motion.button>
                 </div>
               </div>
-              <div className="text-sm font-comic text-gray-600">
-                <p className="mb-2">✨ Shipping fee: $10 for delivery to your place</p>
-                <p>📧 After adding to cart, please email your artwork to us</p>
-              </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

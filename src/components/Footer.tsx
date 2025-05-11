@@ -26,7 +26,12 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/my-arts" className="text-gray-600 hover:text-candy-pink font-comic transition-colors">
+                <Link to="/services" className="text-gray-600 hover:text-candy-pink font-comic transition-colors">
+                  My Services
+                </Link>
+              </li>
+              <li>
+                <Link to="/arts" className="text-gray-600 hover:text-candy-pink font-comic transition-colors">
                   My Arts
                 </Link>
               </li>
@@ -67,10 +72,15 @@ const Footer: React.FC = () => {
           </div>
         </div>
         
-        <div className="mt-8 pt-6 border-t border-candy-purple/10 text-center">
-          <p className="text-sm text-gray-600 font-comic">
+        <div className="mt-8 pt-6 border-t border-candy-purple/10 text-center flex flex-col md:flex-row md:justify-between md:items-center">
+          <p className="text-sm text-gray-600 font-comic mb-2 md:mb-0">
             © {new Date().getFullYear()} Untitled Brush Studio & VeroKnows LLC.
           </p>
+          <div className="flex justify-center space-x-4">
+            <Link to="/privacy" className="text-gray-600 hover:text-candy-pink font-comic text-sm transition-colors">Privacy</Link>
+            <span className="text-gray-400">|</span>
+            <Link to="/terms" className="text-gray-600 hover:text-candy-pink font-comic text-sm transition-colors">Terms</Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -8,6 +8,7 @@ import AboutPage from './pages/AboutPage';
 import CartPage from './pages/CartPage';
 import LoadingScreen from './components/LoadingScreen';
 import { defaultImages, ImageConfig } from './config/images';
+import MyServicesPage from './pages/MyServicesPage';
 
 interface AppProps {
   images?: ImageConfig;
@@ -33,7 +34,8 @@ function App({ images = defaultImages }: AppProps) {
           <Layout>
             <Routes>
               <Route path="/" element={<HomePage images={images} />} />
-              <Route path="/my-arts" element={<MyArtsPage images={images} />} />
+              <Route path="/services" element={<MyServicesPage />} />
+              <Route path="/arts" element={<MyArtsPage images={images} />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/cart" element={<CartPage />} />
             </Routes>

@@ -25,7 +25,13 @@ const NavigationBar: React.FC = () => {
               Home
             </Link>
             <Link
-              to="/my-arts"
+              to="/services"
+              className="text-sm font-comic hover:text-candy-yellow transition-colors hover:animate-bounce"
+            >
+              My Services
+            </Link>
+            <Link
+              to="/arts"
               className="text-sm font-comic hover:text-candy-yellow transition-colors hover:animate-bounce"
             >
               My Arts

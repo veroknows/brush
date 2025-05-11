@@ -38,22 +38,28 @@ A responsive web application for a personal art studio offering digital art and 
 
 ### 2. Page Components
 
+#### MyServicesPage
+- Lists all available services using a scalable model
+- Each service is displayed as a card (like My Arts section)
+- No detailed email instructions shown here
+
 #### HomePage
 Divided into three main sections:
 
 ##### ServicesSection
 ```typescript
-interface StickerService {
+interface Service {
+  id: string;
   name: string;
   price: number;
   description: string;
+  image: string;
   emailInstructions: string;
 }
 ```
-- Sticker printing service card
-- Price display: $1.00 per sticker
-- Email submission form or instructions
-- Add to Cart functionality
+- Displays a summary of available services (first service shown)
+- "View All Services" link navigates to My Services page
+- Uses a scalable array of services for easy future expansion
 
 ##### ArtsSection
 ```typescript
@@ -188,3 +194,12 @@ const storageUtils = {
 - Payment integration
 - Admin dashboard
 - Analytics dashboard
+
+## Core Data Model
+
+### Service Model
+- All services are defined in a `Service` interface and managed in a `services` array (see `src/config/services.ts`)
+- To add a new service, simply add a new object to the array
+
+## Navigation
+- Navigation bar now includes a "Services" link to the My Services page

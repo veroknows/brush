@@ -26,4 +26,13 @@ export interface CartState {
   items: CartItem[];
   totalItems: number;
   totalPrice: number;
+}
+
+export interface Service {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+  emailInstructions: string;
 } 
