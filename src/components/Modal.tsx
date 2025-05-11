@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactDOM from 'react-dom';
 
 interface ModalProps {
   isOpen: boolean;
@@ -24,14 +25,24 @@ const Modal: React.FC<ModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      // Add Escape key handler
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = 'auto';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
     } else {
       document.body.style.overflow = 'auto';
     }
-    
     return () => {
       document.body.style.overflow = 'auto';
     };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -51,7 +62,8 @@ const Modal: React.FC<ModalProps> = ({
     }
   };
 
-  return (
+  // Render modal in a portal to ensure it's always on top
+  return ReactDOM.createPortal(
     <AnimatePresence>
       {isOpen && (
         <>
@@ -102,7 +114,8 @@ const Modal: React.FC<ModalProps> = ({
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 

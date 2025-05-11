@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { defaultImages } from '../config/images';
 import { Service } from '../types';
@@ -12,7 +12,10 @@ interface ServicesSectionProps {
 const ServicesSection: React.FC<ServicesSectionProps> = ({ services, headerRight }) => {
   const { addItem } = useCart();
 
-  const handleAddToCart = (service: Service) => {
+  // Track which service was just added for feedback
+  const [justAddedId, setJustAddedId] = useState<string | null>(null);
+
+  const handleAddToCartWithEffect = (service: Service) => {
     addItem({
       id: service.id,
       type: 'sticker', // For now, all services are stickers. Update as more types are added.
@@ -21,10 +24,12 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services, headerRight
       unitPrice: service.price,
       totalPrice: service.price,
     });
+    setJustAddedId(service.id);
+    setTimeout(() => setJustAddedId(null), 900);
   };
 
   return (
-    <section className="bg-gradient-to-b from-candy-purple/5 to-transparent rounded-2xl p-6">
+    <section className="bg-gradient-to-b from-candy-purple/5 to-transparent rounded-2xl p-6 relative overflow-hidden">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-comic text-candy-purple">
           My Services
@@ -72,15 +77,26 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services, headerRight
                     </motion.p>
                   </div>
                   <motion.button
-                    onClick={() => handleAddToCart(service)}
-                    className="bg-candy-purple text-white text-sm font-comic py-2 px-6 rounded-full hover:bg-candy-pink transition-colors whitespace-nowrap"
+                    onClick={() => handleAddToCartWithEffect(service)}
+                    className={`text-sm font-comic py-2 px-6 rounded-full whitespace-nowrap transition-all duration-300
+                      ${justAddedId === service.id
+                        ? 'bg-green-500 scale-110 text-white'
+                        : 'bg-candy-purple text-white hover:bg-candy-pink'}`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.2 }}
+                    disabled={justAddedId === service.id}
                   >
-                    Add to Cart
+                    {justAddedId === service.id ? (
+                      <span className="flex items-center gap-1">
+                        <svg className="w-4 h-4 inline-block" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                        Added!
+                      </span>
+                    ) : (
+                      'Add to Cart'
+                    )}
                   </motion.button>
                 </div>
               </div>

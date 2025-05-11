@@ -4,7 +4,7 @@ import AlertPopup from '../components/AlertPopup';
 import ConfirmDialog from '../components/ConfirmDialog';
 
 const CartPage: React.FC = () => {
-  const { items, totalPrice, updateQuantity, removeItem } = useCart();
+  const { items, totalPrice, updateQuantity, removeItem, clearCart } = useCart();
   const [alert, setAlert] = useState<{
     isOpen: boolean;
     title: string;
@@ -26,6 +26,8 @@ const CartPage: React.FC = () => {
     itemId: null,
     itemName: ''
   });
+
+  const [clearDialogOpen, setClearDialogOpen] = useState(false);
 
   const handleCopyOrder = () => {
     const orderText = `Order Details:
@@ -148,6 +150,14 @@ Don't forget to attach your photo(s) if you're ordering sticker printing!`;
           <span className="text-lg font-comic text-candy-purple">Total</span>
           <span className="text-2xl font-comic text-candy-pink">${totalPrice.toFixed(2)}</span>
         </div>
+        <div className="flex justify-end mt-4">
+          <button
+            onClick={() => setClearDialogOpen(true)}
+            className="bg-candy-pink text-white px-4 py-2 rounded-full font-comic hover:bg-red-500 transition-colors"
+          >
+            Clear All
+          </button>
+        </div>
         
         <div className="mt-8">
           <button
@@ -185,6 +195,16 @@ Don't forget to attach your photo(s) if you're ordering sticker printing!`;
         title="Remove Item"
         message={`Are you sure you want to remove "${confirmDialog.itemName}" from your cart?`}
         confirmText="Remove"
+        cancelText="Cancel"
+        confirmButtonClass="bg-candy-pink hover:bg-red-500"
+      />
+      <ConfirmDialog
+        isOpen={clearDialogOpen}
+        onClose={() => setClearDialogOpen(false)}
+        onConfirm={() => { clearCart(); setClearDialogOpen(false); }}
+        title="Clear Cart"
+        message="Are you sure you want to remove all items from your cart?"
+        confirmText="Clear All"
         cancelText="Cancel"
         confirmButtonClass="bg-candy-pink hover:bg-red-500"
       />
