@@ -34,7 +34,7 @@ const CartPage: React.FC = () => {
 ${items.map(item => `- ${item.name} x${item.quantity} @ $${item.unitPrice.toFixed(2)} each = $${item.totalPrice.toFixed(2)}`).join('\n')}
 Total: $${totalPrice.toFixed(2)}
 
-Please send this order to orders@artstudio.com
+Please send this order to brush@veroknows.com
 Don't forget to attach your photo(s) if you're ordering sticker printing!`;
 
     navigator.clipboard.writeText(orderText)
@@ -167,16 +167,21 @@ Don't forget to attach your photo(s) if you're ordering sticker printing!`;
             Copy Order Details
           </button>
           
-          <p className="mt-4 text-sm font-comic text-gray-500">
-            Please copy the order details and send them to{' '}
-            <a
-              href="mailto:orders@artstudio.com"
-              className="text-candy-purple hover:text-candy-pink"
-            >
-              orders@artstudio.com
-            </a>
-            {' '}along with any photos for sticker printing.
-          </p>
+          <div className="mt-6 bg-candy-yellow/20 border-2 border-candy-yellow rounded-xl p-4 flex items-center gap-4 shadow-sm">
+            <span className="text-2xl">📧</span>
+            <div>
+              <span className="block text-lg font-comic text-candy-purple font-semibold mb-1">
+                Please copy the order details and send them to
+                <a
+                  href="mailto:brush@veroknows.com"
+                  className="ml-1 underline text-candy-pink hover:text-candy-indigo font-bold"
+                >
+                  brush@veroknows.com
+                </a>
+                {' '}along with any photos for sticker printing.
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
