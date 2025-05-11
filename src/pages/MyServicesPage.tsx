@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ServicesSection from '../components/ServicesSection';
 import { services } from '../config/services';
 import { motion } from 'framer-motion';
+import { Service } from '../types';
 
 const itemVariants = {
   hidden: { y: 20, opacity: 0 },
@@ -17,6 +18,14 @@ const itemVariants = {
 };
 
 const MyServicesPage: React.FC = () => {
+  // Track which service was just added for feedback
+  const [justAddedId, setJustAddedId] = useState<string | null>(null);
+  const handleAddToCartWithEffect = (service: Service) => {
+    if (typeof window !== 'undefined') {
+      setJustAddedId(service.id);
+      setTimeout(() => setJustAddedId(null), 900);
+    }
+  };
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <motion.h1
@@ -33,7 +42,7 @@ const MyServicesPage: React.FC = () => {
         animate="visible"
         variants={itemVariants}
       >
-        <ServicesSection services={services} />
+        <ServicesSection services={services} justAddedId={justAddedId} onAddToCartEffect={handleAddToCartWithEffect} />
       </motion.div>
     </div>
   );

@@ -7,26 +7,31 @@ import { motion } from 'framer-motion';
 interface ServicesSectionProps {
   services: Service[];
   headerRight?: React.ReactNode;
+  justAddedId?: string | null;
+  onAddToCartEffect?: (service: Service) => void;
 }
 
-const ServicesSection: React.FC<ServicesSectionProps> = ({ services, headerRight }) => {
+const ServicesSection: React.FC<ServicesSectionProps> = ({ services, headerRight, justAddedId: propJustAddedId, onAddToCartEffect }) => {
   const { addItem } = useCart();
 
-  // Track which service was just added for feedback
-  const [justAddedId, setJustAddedId] = useState<string | null>(null);
-
+  // Local state for Add to Cart effect if not provided by parent
+  const [localJustAddedId, setLocalJustAddedId] = useState<string | null>(null);
   const handleAddToCartWithEffect = (service: Service) => {
     addItem({
       id: service.id,
-      type: 'sticker', // For now, all services are stickers. Update as more types are added.
+      type: 'sticker',
       name: service.name,
       quantity: 1,
       unitPrice: service.price,
       totalPrice: service.price,
     });
-    setJustAddedId(service.id);
-    setTimeout(() => setJustAddedId(null), 900);
+    setLocalJustAddedId(service.id);
+    setTimeout(() => setLocalJustAddedId(null), 900);
   };
+
+  // Use props if provided, otherwise use local state/handler
+  const useJustAddedId = propJustAddedId ?? localJustAddedId;
+  const addToCartHandler = onAddToCartEffect ?? handleAddToCartWithEffect;
 
   return (
     <section className="bg-gradient-to-b from-candy-purple/5 to-transparent rounded-2xl p-6 relative overflow-hidden">
@@ -77,9 +82,9 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services, headerRight
                     </motion.p>
                   </div>
                   <motion.button
-                    onClick={() => handleAddToCartWithEffect(service)}
+                    onClick={() => addToCartHandler(service)}
                     className={`text-sm font-comic py-2 px-6 rounded-full whitespace-nowrap transition-all duration-300
-                      ${justAddedId === service.id
+                      ${useJustAddedId === service.id
                         ? 'bg-green-500 scale-110 text-white'
                         : 'bg-candy-purple text-white hover:bg-candy-pink'}`}
                     whileHover={{ scale: 1.05 }}
@@ -87,9 +92,9 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services, headerRight
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.2 }}
-                    disabled={justAddedId === service.id}
+                    disabled={useJustAddedId === service.id}
                   >
-                    {justAddedId === service.id ? (
+                    {useJustAddedId === service.id ? (
                       <span className="flex items-center gap-1">
                         <svg className="w-4 h-4 inline-block" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                         Added!

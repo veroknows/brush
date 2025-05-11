@@ -13,7 +13,10 @@ const MyArtsPage: React.FC<MyArtsPageProps> = ({ images }) => {
   const { addItem } = useCart();
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
 
-  const handleAddToCart = (artwork: Artwork) => {
+  // Track which artwork was just added for feedback
+  const [justAddedId, setJustAddedId] = useState<string | null>(null);
+
+  const handleAddToCartWithEffect = (artwork: Artwork) => {
     addItem({
       id: artwork.id,
       type: 'artwork',
@@ -22,6 +25,8 @@ const MyArtsPage: React.FC<MyArtsPageProps> = ({ images }) => {
       unitPrice: artwork.price,
       totalPrice: artwork.price,
     });
+    setJustAddedId(artwork.id);
+    setTimeout(() => setJustAddedId(null), 900);
   };
 
   // Animation variants
@@ -105,16 +110,27 @@ const MyArtsPage: React.FC<MyArtsPageProps> = ({ images }) => {
                   <motion.button
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart(artwork);
+                      handleAddToCartWithEffect(artwork);
                     }}
-                    className="bg-candy-purple text-white px-6 py-2 rounded-full font-comic hover:bg-candy-pink transition-colors"
+                    className={`px-6 py-2 rounded-full font-comic transition-all duration-300
+                      ${justAddedId === artwork.id
+                        ? 'bg-green-500 scale-110 text-white'
+                        : 'bg-candy-purple text-white hover:bg-candy-pink'}`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.4 }}
+                    disabled={justAddedId === artwork.id}
                   >
-                    Add to Cart
+                    {justAddedId === artwork.id ? (
+                      <span className="flex items-center gap-1">
+                        <svg className="w-4 h-4 inline-block" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                        Added!
+                      </span>
+                    ) : (
+                      'Add to Cart'
+                    )}
                   </motion.button>
                 </div>
               </div>
@@ -126,7 +142,7 @@ const MyArtsPage: React.FC<MyArtsPageProps> = ({ images }) => {
       <ArtPopup
         artwork={selectedArtwork}
         onClose={() => setSelectedArtwork(null)}
-        onAddToCart={handleAddToCart}
+        onAddToCart={handleAddToCartWithEffect}
       />
     </div>
   );
