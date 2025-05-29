@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ImageConfig } from '../config/images';
 import { Artwork } from '../types';
-import Masonry from 'react-masonry-css';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
 import fallbackImg from '../assets/images/artwork1.png'; // Use a real fallback image if you have one
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -12,12 +9,6 @@ interface ArtsGallerySectionProps {
   images: ImageConfig;
   onAddToCart: (artwork: Artwork) => void;
 }
-
-const breakpointColumnsObj = {
-  default: 3,
-  1100: 2,
-  700: 1
-};
 
 const ArtsGallerySection: React.FC<ArtsGallerySectionProps> = ({ images, onAddToCart }) => {
   // Only show the first 4 artworks

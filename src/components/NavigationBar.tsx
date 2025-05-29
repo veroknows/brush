@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { useCart } from '../context/CartContext';
-import { defaultImages } from '../config/images';
 
 const NavigationBar: React.FC = () => {
   const { totalItems } = useCart();

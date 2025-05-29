@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ImageConfig } from '../config/images';
 import { useCart } from '../context/CartContext';
 import ServicesSection from '../components/ServicesSection';
 import InformationSection from '../components/InformationSection';
 import { Artwork } from '../types';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { services } from '../config/services';
 import ArtsGallerySection from '../components/ArtsGallerySection';
 
