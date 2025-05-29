@@ -1,6 +1,6 @@
 # Untitled Brush Studio
 
-**Untitled Brush Studio** is a personal art gallery and services platform. Showcase your artwork, manage your portfolio, and offer creative services—all in one place.
+**Untitled Brush Studio** is a personal art gallery and services website. Showcase your artwork, manage your portfolio, and offer creative services—all in one place.
 
 ## Features
 
